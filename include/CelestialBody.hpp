@@ -3,6 +3,7 @@
 
 #include <SDL3/SDL.h>
 #include <iostream>
+#include <deque>
 
 #include "Vec2.hpp"
 #include "Window.hpp"
@@ -24,6 +25,8 @@ public:
     void Update(double deltaTime);
     void Draw(Window &win);
 
+    friend std::ostream& operator<<(std::ostream& out, const CelestialBody& cb);
+
 private:
 
     std::string m_bodyName;
@@ -35,6 +38,12 @@ private:
     Vec2 m_screenCoordinates;
 
     SDL_Color m_color;
+
+    int trailUpdateIntervalFrames = 5;
+    int trailFrameCounter = 0;
+
+    int maxTrailLength = 300;
+    std::deque<Vec2> orbitTrail;
 
 };
 

@@ -6,7 +6,12 @@
 #include "Vec2.hpp"
 #include "CelestialBody.hpp"
 #include "Window.hpp"
-#include "SimulationConfig.hpp"
+#include "SimulationConfig.hpp" 
+
+/**
+ * TODO: ADD IMGUI support for various "things" I can do.
+ * // Could add loading and saving config files
+ */
 
 double simSpeed = 1.0;
 
@@ -44,6 +49,9 @@ int main(int argc, char* argv[]) {
                 body->ApplyGravity(sun, deltaTime);
             }
             body->Update(deltaTime);
+
+            std::cout << *body << std::endl;
+
         }
 
         // --- Rendering ---

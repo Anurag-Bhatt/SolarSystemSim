@@ -4,6 +4,7 @@
 #include <cmath>
 
 
+
 CelestialBody::CelestialBody(double r, double x, double y, double mass, SDL_Color color)
 : m_radius(r), m_position(x, y), m_mass(mass), m_color(color), m_velocity(0, 0) {}
 
@@ -65,6 +66,17 @@ void CelestialBody::ApplyGravity(const CelestialBody &b, double deltaTime)
 void CelestialBody::Update(double deltaTime)
 {
     m_position += m_velocity * deltaTime * 10;
+
+    trailFrameCounter++;
+    if(trailFrameCounter > trailUpdateIntervalFrames){
+        orbitTrail.push_back(m_position);
+        trailFrameCounter = 0;
+    }
+     
+    if(orbitTrail.size() > maxTrailLength){
+        orbitTrail.pop_front();
+    }
+
 }
 
 void CelestialBody::Draw(Window &win)
@@ -84,4 +96,22 @@ void CelestialBody::Draw(Window &win)
         int y = static_cast<int>(m_screenCoordinates.y + m_radius * std::sin(radians));
         SDL_RenderPoint(win.getRenderer(), x, y);
     }
+
+    if(orbitTrail.size() > 1){
+        for(size_t i = 1; i < orbitTrail.size(); i++){
+            SDL_SetRenderDrawColor(win.getRenderer(), m_color.r, m_color.g, m_color.b, 100);
+            SDL_RenderLine(win.getRenderer(), orbitTrail[i - 1].x + win.screenCenter.x, orbitTrail[i - 1].y + win.screenCenter.y,
+            orbitTrail[i].x + win.screenCenter.x, orbitTrail[i].y + win.screenCenter.y);
+        }
+    }
+}
+
+
+std::ostream &operator<<(std::ostream &out, const CelestialBody &cb)
+{
+    out << cb.m_bodyName << " \n"
+        << "Mass: " << cb.m_mass << " \n"
+        << "Position: " << cb.m_position << " \n"
+        << "Velocity: " << cb.m_velocity << std::endl;
+    return out;
 }
