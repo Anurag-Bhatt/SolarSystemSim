@@ -28,3 +28,34 @@ cd build
 cmake ..
 make
 ```
+## Controls
+
+You can interact with the Solar System Simulation in real-time using the following controls:
+
+### Keyboard
+
+| Key         | Action                         |
+|-------------|--------------------------------|
+| `W`         | Pan up                         |
+| `A`         | Pan left                       |
+| `S`         | Pan down                       |
+| `D`         | Pan right                      |
+| `P`         | Pause / Resume the simulation  |
+| `→ (Right Arrow)` | Double simulation speed     |
+| `← (Left Arrow)`  | Halve simulation speed      |
+| `ESC`       | Exit the simulation            |
+
+> Panning is relative to the current zoom level — higher zoom means smoother movement.
+
+### Mouse
+
+| Input       | Action                         |
+|-------------|--------------------------------|
+| Scroll Up   | Zoom in                        |
+| Scroll Down | Zoom out                       |
+
+> Zooming scales the view smoothly, giving you a closer or wider look at the solar system.
+
+---
+
+Feel free to tweak the pan/zoom speed constants in the source if you want a different feel!
