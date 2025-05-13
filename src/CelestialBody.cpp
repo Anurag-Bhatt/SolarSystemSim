@@ -82,9 +82,9 @@ void CelestialBody::Update(double deltaTime)
 void CelestialBody::Draw(Window &win)
 {
     // Convert simulation coordinates to screen coordinates
-    m_screenCoordinates.x = static_cast<int>(m_position.x + win.screenCenter.x);
-    m_screenCoordinates.y = static_cast<int>(m_position.y + win.screenCenter.y);
-
+    m_screenCoordinates.x = static_cast<int>((m_position.x + win.panOffset.x) * win.zoom + win.screenCenter.x);
+    m_screenCoordinates.y = static_cast<int>((m_position.y + win.panOffset.y) * win.zoom + win.screenCenter.y);
+    int renderRadius = static_cast<int>(m_radius * win.zoom);
     // Set drawing color
     SDL_SetRenderDrawColor(win.getRenderer(), 
                           m_color.r, m_color.g, m_color.b, m_color.a);
@@ -92,16 +92,22 @@ void CelestialBody::Draw(Window &win)
     // Draw circle using multiple points
     for (int angle = 0; angle < 360; ++angle) {
         double radians = angle * M_PI / 180.0;
-        int x = static_cast<int>(m_screenCoordinates.x + m_radius * std::cos(radians));
-        int y = static_cast<int>(m_screenCoordinates.y + m_radius * std::sin(radians));
+        int x = static_cast<int>(m_screenCoordinates.x + renderRadius * std::cos(radians));
+        int y = static_cast<int>(m_screenCoordinates.y + renderRadius * std::sin(radians));
         SDL_RenderPoint(win.getRenderer(), x, y);
     }
 
     if(orbitTrail.size() > 1){
         for(size_t i = 1; i < orbitTrail.size(); i++){
             SDL_SetRenderDrawColor(win.getRenderer(), m_color.r, m_color.g, m_color.b, 100);
-            SDL_RenderLine(win.getRenderer(), orbitTrail[i - 1].x + win.screenCenter.x, orbitTrail[i - 1].y + win.screenCenter.y,
-            orbitTrail[i].x + win.screenCenter.x, orbitTrail[i].y + win.screenCenter.y);
+            
+            double x1 = (orbitTrail[i - 1].x + win.panOffset.x) * win.zoom + win.screenCenter.x;
+            double y1 = (orbitTrail[i - 1].y + win.panOffset.y) * win.zoom + win.screenCenter.y;
+
+            double x2 = (orbitTrail[i].x + win.panOffset.x) * win.zoom + win.screenCenter.x;
+            double y2 = (orbitTrail[i].y + win.panOffset.y) * win.zoom + win.screenCenter.y;
+
+            SDL_RenderLine(win.getRenderer(), x1, y1, x2, y2);
         }
     }
 }

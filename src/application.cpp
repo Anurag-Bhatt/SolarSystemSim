@@ -26,19 +26,13 @@ int main(int argc, char* argv[]) {
 
     bodies.push_back(sun.CreatePlanet("Earth", 10, 1.0, 5.972e24, {0, 0, 255, 255}));
     bodies.push_back(sun.CreatePlanet("Mars", 5.3, 1.52, 6.42e23, {255, 100, 100, 255}));
-
-    // --- Timing ---
-    Uint64 now = SDL_GetPerformanceCounter();
-    Uint64 last = 0;
-    double deltaTime = 0.0;
+    bodies.push_back(sun.CreatePlanet("Venus", 9.50, 0.72, 4.87e24, {180, 120, 40, 255}));
 
     while (win.isWindowRunning) {
         // Delta Time
-        last = now;
-        now = SDL_GetPerformanceCounter();
-        deltaTime = (double)((now - last) / (double)SDL_GetPerformanceFrequency()) * simSpeed;
+        win.updateDeltaTime();
 
-        std::cout << "FPS: " << (deltaTime > 0 ? 1.0 / deltaTime : 0) << std::endl;
+        std::cout << "FPS: " << (win.deltaTime > 0 ? 1.0 / win.deltaTime : 0) << std::endl;
 
         win.handleEvents();
         win.clearRenderer();
@@ -46,9 +40,9 @@ int main(int argc, char* argv[]) {
         // --- Physics Update ---
         for (auto* body : bodies) {
             if (body != &sun) {
-                body->ApplyGravity(sun, deltaTime);
+                body->ApplyGravity(sun, win.deltaTime);
             }
-            body->Update(deltaTime);
+            body->Update(win.deltaTime);
 
             std::cout << *body << std::endl;
 
