@@ -1,6 +1,6 @@
 # SolarSystemSim
 
-A simple solar system simulation using SDL3 and ImGui.
+A simple solar system simulation using SDL3 and ImGui(WIP).
 -
 ![Simulation Preview](assets/preview.png)
 -
