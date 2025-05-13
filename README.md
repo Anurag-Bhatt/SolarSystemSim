@@ -1,6 +1,7 @@
 # SolarSystemSim
 
 A simple solar system simulation using SDL3 and ImGui.
+![Simulation Preview](assets/preview.png)
 
 ## Structure
 
@@ -14,7 +15,7 @@ A simple solar system simulation using SDL3 and ImGui.
 
 ## Build
 
-Uses CMake to build. Example:
+Uses CMake to build.
 
 ```bash
 mkdir -p build
