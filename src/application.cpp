@@ -17,25 +17,10 @@ int main(int argc, char* argv[]) {
     double sunMass = 1.989e30 * massScale;
     CelestialBody sun(30, 0, 0, sunMass, {255, 255, 0, 255});
 
-    double earthMass = 5.972e24 * massScale;
-    double earthDistance = 149.6e6 * distanceScale;
-    double earthVelocity = std::sqrt(scaledG * sunMass / earthDistance) * 10 / distanceScale;
-    CelestialBody earth(10, earthDistance, 0, earthMass, {0, 0, 255, 255});
-    earth.SetVelocity(Vec2(0, earthVelocity));
+    std::vector<CelestialBody*> bodies = {&sun};
 
-    double venusMass = 4.87e24 * massScale;
-    double venusDistance = 0.72 * earthDistance;
-    double venusVelocity = std::sqrt(scaledG * sunMass / venusDistance) * 10 / distanceScale;
-    CelestialBody venus(9.5, venusDistance, 0, venusMass, {200, 150, 100, 255});
-    venus.SetVelocity(Vec2(0, venusVelocity));
-
-    double marsMass = 6.42e23 * massScale;
-    double marsDistance = 1.52 * earthDistance;
-    double marsVelocity = std::sqrt(scaledG * sunMass / marsDistance) * 10 / distanceScale;
-    CelestialBody mars(5.32, marsDistance, 0, marsMass, {255, 80, 80, 255});
-    mars.SetVelocity(Vec2(0, marsVelocity));
-
-    std::vector<CelestialBody*> bodies = {&sun, &earth, &venus, &mars};
+    bodies.push_back(sun.CreatePlanet("Earth", 10, 1.0, 5.972e24, {0, 0, 255, 255}));
+    bodies.push_back(sun.CreatePlanet("Mars", 5.3, 1.52, 6.42e23, {255, 100, 100, 255}));
 
     // --- Timing ---
     Uint64 now = SDL_GetPerformanceCounter();

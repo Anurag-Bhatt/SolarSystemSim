@@ -12,14 +12,21 @@ class CelestialBody{
 
 public:
     CelestialBody(double r, double x, double y, double mass, SDL_Color color);
+    CelestialBody(const std::string name, double r, double x, double y, double mass, SDL_Color color);
     ~CelestialBody();
 
+    CelestialBody *CreatePlanet(const std::string& name, double radius, double distanceFromSunAU,
+    double massInKg, SDL_Color color); 
+    std::string getName();
+    double getMass()const;
     void SetVelocity(const Vec2 vel);
     void ApplyGravity(const CelestialBody &b, double deltaTime);
     void Update(double deltaTime);
     void Draw(Window &win);
 
 private:
+
+    std::string m_bodyName;
 
     double m_radius;
     double m_mass;

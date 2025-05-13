@@ -1,9 +1,48 @@
 #include "../include/CelestialBody.hpp"
 
+#include <random>
+#include <cmath>
+
+
 CelestialBody::CelestialBody(double r, double x, double y, double mass, SDL_Color color)
 : m_radius(r), m_position(x, y), m_mass(mass), m_color(color), m_velocity(0, 0) {}
 
+CelestialBody::CelestialBody(const std::string name, double r, double x, double y, double mass, SDL_Color color)
+:m_bodyName(name), m_radius(r), m_position(x, y), m_mass(mass), m_color(color), m_velocity(0, 0) {}
+
+
 CelestialBody::~CelestialBody() {}
+
+CelestialBody *CelestialBody::CreatePlanet(const std::string &name, double radius, double distanceFromSunAU, double massInKg, SDL_Color color)
+{
+    const CelestialBody &sun = *this;
+    double distance = distanceFromSunAU * distanceScale * 149.6e6;
+    double mass = massInKg * massScale;
+    double velocity = sqrt(scaledG * sun.getMass() / distance) * 10 / distanceScale;
+
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(0.0, 2 * M_PI);
+    double angle = dis(gen);
+
+    // Calculate the coordinates
+    double x = distance * std::cos(angle);
+    double y = distance * std::sin(angle);
+
+    auto* planet = new CelestialBody(name, radius, x, y, mass, color);
+    planet->SetVelocity(Vec2(-velocity*std::sin(angle), velocity*std::cos(angle)));
+    return planet;
+}
+
+std::string CelestialBody::getName()
+{
+    return m_bodyName;
+}
+
+double CelestialBody::getMass() const
+{
+    return m_mass;
+}
 
 void CelestialBody::SetVelocity(const Vec2 vel)
 {
