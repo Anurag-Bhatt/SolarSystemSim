@@ -1,8 +1,13 @@
 # SolarSystemSim
 
 A simple solar system simulation using SDL3 and ImGui.
+-
 ![Simulation Preview](assets/preview.png)
+-
+### Orbit Trails
+![Preview_OrbitTrail](assets/preview_oribitTrail.png)
 
+---
 ## Structure
 
 - `bin/` - compiled binaries
