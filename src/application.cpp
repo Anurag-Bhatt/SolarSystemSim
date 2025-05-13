@@ -8,11 +8,6 @@
 #include "Window.hpp"
 #include "SimulationConfig.hpp" 
 
-/**
- * TODO: ADD IMGUI support for various "things" I can do.
- * // Could add loading and saving config files
- */
-
 double simSpeed = 1.0;
 
 int main(int argc, char* argv[]) {
@@ -28,6 +23,7 @@ int main(int argc, char* argv[]) {
     bodies.push_back(sun.CreatePlanet("Mars", 5.3, 1.52, 6.42e23, {255, 100, 100, 255}));
     bodies.push_back(sun.CreatePlanet("Venus", 9.50, 0.72, 4.87e24, {180, 120, 40, 255}));
 
+
     while (win.isWindowRunning) {
         // Delta Time
         win.updateDeltaTime();
@@ -38,14 +34,16 @@ int main(int argc, char* argv[]) {
         win.clearRenderer();
 
         // --- Physics Update ---
-        for (auto* body : bodies) {
-            if (body != &sun) {
-                body->ApplyGravity(sun, win.deltaTime);
+        if(!win.isSimPaused){
+            for (auto* body : bodies) {
+                if (body != &sun) {
+                    body->ApplyGravity(sun, win.deltaTime);
+                }
+                body->Update(win.deltaTime);
+
+                // For debugging
+                std::cout << *body << std::endl;
             }
-            body->Update(win.deltaTime);
-
-            std::cout << *body << std::endl;
-
         }
 
         // --- Rendering ---

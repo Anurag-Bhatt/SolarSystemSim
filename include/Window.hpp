@@ -17,6 +17,7 @@ public:
     void updateDeltaTime(); 
 
     bool isWindowRunning;
+    bool isSimPaused;
     int screenWidth;
     int screenHeight;
     Vec2 screenCenter;
@@ -25,7 +26,7 @@ public:
     Vec2 panOffset = {0.0, 0.0};
 
     double deltaTime = 0.0;
-    double simSpeed = 1.0l;
+    double simSpeed = 1.0;
 private:
 
     Uint64 now, last;

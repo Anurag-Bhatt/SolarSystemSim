@@ -1,4 +1,4 @@
-#include "../include/CelestialBody.hpp"
+#include "CelestialBody.hpp"
 
 #include <random>
 #include <cmath>

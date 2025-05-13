@@ -1,4 +1,4 @@
-#include "../include/Window.hpp"
+#include "Window.hpp"
 
 
 // Initialize global color constants
@@ -38,6 +38,7 @@ Window::Window(const char *windowTitle, int screenWidth, int screenHeight) :
     }
 
     isWindowRunning = true;
+    isSimPaused = false;
 
     now = SDL_GetPerformanceCounter();
 }
@@ -78,8 +79,7 @@ void Window::handleEvents()
             break;
             
             case SDL_EVENT_KEY_DOWN:
-                switch (m_event.key.scancode)
-                {
+                switch (m_event.key.scancode){
                 case SDL_SCANCODE_ESCAPE:
                     isWindowRunning = false;
                 break;
@@ -96,7 +96,16 @@ void Window::handleEvents()
                 case SDL_SCANCODE_D:
                     panOffset.x += panSpeed/zoom;
                 break;
-                }
+                case SDL_SCANCODE_P:
+                    isSimPaused = !isSimPaused;
+                break;
+                case SDL_SCANCODE_RIGHT:
+                    simSpeed *= 2;
+                break;
+                case SDL_SCANCODE_LEFT:
+                    simSpeed /= 2;
+                break;
+            }
 
             break;
             // Add other event handlers
