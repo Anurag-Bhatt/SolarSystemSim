@@ -3,6 +3,9 @@ project(SolarSystemSim)
 
 set(CMAKE_CXX_STANDARD 17)
 
+#Set the output directory for the final executable
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
 # Include directories
 include_directories(include)
 
