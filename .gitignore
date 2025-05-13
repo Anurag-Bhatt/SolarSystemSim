@@ -2,6 +2,7 @@
 /bin/
 /build/
 /logs/
+/.vscode/
 
 # OS-specific
 *.DS_Store
