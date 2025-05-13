@@ -1,0 +1,19 @@
+# Build and output folders
+/bin/
+/build/
+/logs/
+
+# OS-specific
+*.DS_Store
+
+# Temporary files
+*.o
+*.obj
+*.log
+*.tmp
+
+# CMake cache
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
