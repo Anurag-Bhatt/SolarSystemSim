@@ -19,3 +19,7 @@ CMakeCache.txt
 cmake_install.cmake
 Makefile
 TODO.md
+
+# ImGui files
+imgui.ini
+imgui_log.txt

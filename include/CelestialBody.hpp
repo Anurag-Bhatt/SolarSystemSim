@@ -18,8 +18,13 @@ public:
 
     CelestialBody *CreatePlanet(const std::string& name, double radius, double distanceFromSunAU,
     double massInKg, SDL_Color color); 
+    
     std::string getName();
     double getMass()const;
+    double getRadius();
+    Vec2 getVelocity();
+    SDL_Color getColor();
+
     void SetVelocity(const Vec2 vel);
     void ApplyGravity(const CelestialBody &b, double deltaTime);
     void Update(double deltaTime);

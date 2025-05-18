@@ -3,8 +3,6 @@
 #include <random>
 #include <cmath>
 
-
-
 CelestialBody::CelestialBody(double r, double x, double y, double mass, SDL_Color color)
 : m_radius(r), m_position(x, y), m_mass(mass), m_color(color), m_velocity(0, 0) {}
 
@@ -43,6 +41,21 @@ std::string CelestialBody::getName()
 double CelestialBody::getMass() const
 {
     return m_mass;
+}
+
+double CelestialBody::getRadius()
+{
+    return m_radius;
+}
+
+Vec2 CelestialBody::getVelocity()
+{
+    return m_velocity;
+}
+
+SDL_Color CelestialBody::getColor()
+{
+    return m_color;
 }
 
 void CelestialBody::SetVelocity(const Vec2 vel)
@@ -115,9 +128,9 @@ void CelestialBody::Draw(Window &win)
 
 std::ostream &operator<<(std::ostream &out, const CelestialBody &cb)
 {
-    out << cb.m_bodyName << " \n"
-        << "Mass: " << cb.m_mass << " \n"
-        << "Position: " << cb.m_position << " \n"
-        << "Velocity: " << cb.m_velocity << std::endl;
+    out << "Name: "     <<  cb.m_bodyName  << "\n"
+        << "Mass: "     <<  cb.m_mass      << "\n"
+        << "Position: " <<  cb.m_position  << "\n"
+        << "Velocity: " <<  cb.m_velocity  << "\n";
     return out;
 }
