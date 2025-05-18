@@ -29,6 +29,12 @@ cmake ..
 make
 ../bin/SolarSystemSim
 ```
+or in the root folder run the build script
+
+```
+./build.sh
+```
+
 ## Controls
 
 You can interact with the Solar System Simulation in real-time using the following controls:
